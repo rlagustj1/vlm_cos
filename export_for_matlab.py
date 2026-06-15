@@ -41,6 +41,11 @@ def main():
     emb = d["embeddings"].astype(np.float64)
     emb = emb / np.linalg.norm(emb, axis=1, keepdims=True)
     names = [str(x) for x in d["names"]]
+    # MATLAB/Octave 라벨용 ASCII 표시명 (Octave 의 CJK 렌더링 한계 회피).
+    # 한글 텍스트 프롬프트만 로마자화하고 나머지는 그대로 둔다.
+    roman = {"고양이": "goyangi[ko]", "자동차": "jadongcha[ko]",
+             "로봇 팔": "robotpal[ko]"}
+    disp_names = [roman.get(n, n) for n in names]
     cats = [str(x) for x in d["categories"]]
     mods = [str(x) for x in d["modalities"]]
     colors = [hex2rgb(str(x)) for x in d["colors"]]
@@ -73,6 +78,7 @@ def main():
         "evr": evr,
         "cosmat": cosmat,
         "names": np.array(names, dtype=object),
+        "disp_names": np.array(disp_names, dtype=object),
         "categories": np.array(cats, dtype=object),
         "modalities": np.array(mods, dtype=object),
         "colors": np.array(colors, dtype=np.float64),

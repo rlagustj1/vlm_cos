@@ -54,6 +54,21 @@ python export_for_matlab.py
 >> clip_embedding_viz_3d
 ```
 
+#### GNU Octave (무료 대안)
+
+MATLAB이 없으면 무료 오픈소스 [GNU Octave](https://octave.org)로 실행할 수 있다.
+Octave 호환 스크립트(`clip_embedding_viz_3d_octave.m`)는 `tiledlayout`/
+`exportgraphics`/CJK 폰트 등 Octave 미지원 기능을 피하고, `getframe`로
+래스터를 캡처해 PNG/GIF를 만든다 (라벨은 로마자화).
+
+```bash
+python export_for_matlab.py          # embeddings.mat 생성
+```
+```bash
+octave-cli --no-gui --eval clip_embedding_viz_3d_octave
+```
+→ `embedding_visualization_3d_octave.png` + `clip_embedding_3d_octave.gif`
+
 ## 출력
 
 | 파일 | 설명 |
@@ -63,6 +78,8 @@ python export_for_matlab.py
 | `embedding_3d_interactive.html` | 회전·확대 가능한 인터랙티브 3D (Plotly) |
 | `embedding_visualization_3d_matlab.png` | 3D (MATLAB) — 다크 테마 2-패널, 300dpi |
 | `clip_embedding_3d_matlab.gif` | MATLAB 단위 구면 벡터 회전 애니메이션 |
+| `embedding_visualization_3d_octave.png` | 3D (Octave) — 다크 테마 2-패널 |
+| `clip_embedding_3d_octave.gif` | Octave 단위 구면 벡터 회전 애니메이션 |
 | `similarity_matrix.csv` | 24×24 전체 쌍별 코사인 유사도 |
 | `results_summary.txt` | 카테고리 내/간 유사도 평균 요약 |
 
