@@ -24,6 +24,8 @@ t-SNE 시각화와 코사인 유사도로 검증한다.
 
 ## 실행
 
+### Python
+
 ```bash
 pip install -r requirements.txt
 
@@ -34,13 +36,33 @@ python clip_embedding_viz.py
 python clip_embedding_viz_3d.py
 ```
 
+### MATLAB (3D 시뮬레이션 / 회전 애니메이션)
+
+CLIP 임베딩 계산은 Python이 담당하고, MATLAB은 `.mat` 데이터를 읽어
+3D 렌더링과 회전 애니메이션을 그린다 (Statistics & ML Toolbox 불필요 —
+t-SNE/PCA 3D 좌표는 Python에서 미리 계산해 저장).
+
+```bash
+# 1) 임베딩 캐시 생성 (아직 안 했다면)
+python clip_embedding_viz.py
+# 2) MATLAB용 데이터 내보내기 -> embeddings.mat
+python export_for_matlab.py
+```
+
+```matlab
+% 3) MATLAB에서 실행
+>> clip_embedding_viz_3d
+```
+
 ## 출력
 
 | 파일 | 설명 |
 |---|---|
 | `embedding_visualization.png` | 2D t-SNE — (A) 원본 / (B) modality-gap 보정 |
-| `embedding_visualization_3d.png` | 3D — t-SNE 원본/보정 + 단위 구면 벡터 뷰 |
+| `embedding_visualization_3d.png` | 3D (Python) — t-SNE 원본/보정 + 단위 구면 벡터 뷰 |
 | `embedding_3d_interactive.html` | 회전·확대 가능한 인터랙티브 3D (Plotly) |
+| `embedding_visualization_3d_matlab.png` | 3D (MATLAB) — 다크 테마 2-패널, 300dpi |
+| `clip_embedding_3d_matlab.gif` | MATLAB 단위 구면 벡터 회전 애니메이션 |
 | `similarity_matrix.csv` | 24×24 전체 쌍별 코사인 유사도 |
 | `results_summary.txt` | 카테고리 내/간 유사도 평균 요약 |
 
