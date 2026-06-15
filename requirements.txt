@@ -1,0 +1,8 @@
+transformers
+torch
+scikit-learn
+pillow
+matplotlib
+requests
+numpy
+plotly
